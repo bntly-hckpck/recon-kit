@@ -1,12 +1,23 @@
+import argparse
 from port_scanner import port_scanning
 from banner_grabber import banner_grabbing
 from report import report_writing
 
 def main():
-    # hardcoded for now
-    target_ip = "127.0.0.1"
-    start_port = 9990
-    end_port = 9999
+
+    # argument parser
+    parser = argparse.ArgumentParser(description="recon-kit")
+
+    # arguments
+    parser.add_argument("target_ip", help="insert target ip address")
+    parser.add_argument("start_port", type=int, help="insert first port of scanning range (1-65535)")
+    parser.add_argument("end_port", type=int, help="insert last port of scanning range (1-65535)")
+    args = parser.parse_args()
+
+    # extract values from args
+    target_ip = args.target_ip
+    start_port = args.start_port
+    end_port = args.end_port
 
     # port scanning
     open_ports = port_scanning(target_ip, start_port, end_port)
@@ -24,4 +35,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
