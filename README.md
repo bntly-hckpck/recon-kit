@@ -11,7 +11,10 @@ Minimal personal cybersecurity toolkit to explore the fundamentals of TCP reconn
 - [X] Port range scanning
 - [X] Banner grabbing from open ports
 - [X] JSON report
-- [x] main.py
+- [X] main.py
+- [X] CLI arguments (argparse)
+- [ ] Input validation
+- [ ] Error handling
 - [ ] *TBD*
 
 ## Overview
@@ -33,7 +36,7 @@ Minimal personal cybersecurity toolkit to explore the fundamentals of TCP reconn
 
 2. **Run reconnaissance** (terminal 2):
    ```bash
-   python main.py
+   python main.py 127.0.0.1 9990 9999
    ```
 
 3. **Check JSON report**
