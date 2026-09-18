@@ -13,7 +13,7 @@ Minimal personal cybersecurity toolkit to explore the fundamentals of TCP reconn
 - [X] JSON report
 - [X] main.py
 - [X] CLI arguments (argparse)
-- [ ] Input validation
+- [X] Input validation
 - [ ] Error handling
 - [ ] *TBD*
 
