@@ -1,4 +1,5 @@
 import argparse
+import ipaddress
 from port_scanner import port_scanning
 from banner_grabber import banner_grabbing
 from report import report_writing
@@ -12,6 +13,15 @@ def port_validation(port_number, arg_name):
     else:
         return True
 
+# check if ip is valid
+def ip_validation(ip):
+    try:
+        ipaddress.ip_address(ip)
+        return True
+    except ValueError:
+        print(f"error: invalid IP address '{ip}'")
+        return False
+
 def main():
 
     # argument parser
@@ -22,6 +32,10 @@ def main():
     parser.add_argument("start_port", type=int, help="insert first port of scanning range (1-65535)")
     parser.add_argument("end_port", type=int, help="insert last port of scanning range (1-65535)")
     args = parser.parse_args()
+
+    # ip validation
+    if not ip_validation(args.target_ip):
+        exit(1)
 
     # port validation
     if not port_validation(args.start_port, "first port of scanning range"):
