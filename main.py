@@ -4,24 +4,6 @@ from port_scanner import port_scanning
 from banner_grabber import banner_grabbing
 from report import report_writing
 
-# check if port is within range (1-65535)
-def port_validation(port_number, arg_name):
-
-    if port_number < 1 or port_number > 65535:
-        print(f"error: {arg_name} must be in range (1-65535)")
-        return False
-    else:
-        return True
-
-# check if ip is valid
-def ip_validation(ip):
-    try:
-        ipaddress.ip_address(ip)
-        return True
-    except ValueError:
-        print(f"error: invalid IP address '{ip}'")
-        return False
-
 def main():
 
     # argument parser
@@ -34,14 +16,22 @@ def main():
     args = parser.parse_args()
 
     # ip validation
-    if not ip_validation(args.target_ip):
-        exit(1)
+    try:
+        ipaddress.ip_address(args.target_ip)
+    except ValueError:
+        parser.error(f"error: invalid IP address '{args.target_ip}'")
 
     # port validation
-    if not port_validation(args.start_port, "first port of scanning range"):
-        exit(1)
-    if not port_validation(args.end_port, "last port of scanning range"):
-        exit(1)
+    if args.start_port > args.end_port:
+        parser.error(f"starting port ({args.start_port}) exceeds ending port ({args.end_port})")
+    if args.start_port < 1:
+        parser.error(f"starting port ({args.start_port}) below min (1)")
+    if args.start_port > 65535:
+        parser.error(f"starting port ({args.start_port}) above max (65535)")
+    if args.end_port < 1:
+        parser.error(f"ending port ({args.end_port}) below min (1)")
+    if args.end_port > 65535:
+        parser.error(f"ending port ({args.end_port}) above max (65535)")
 
     # extract values from args
     target_ip = args.target_ip
