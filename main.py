@@ -39,8 +39,11 @@ def main():
     end_port = args.end_port
 
     # port scanning
-    open_ports = port_scanning(target_ip, start_port, end_port)
-    print(f"Found {len(open_ports)} open ports")
+    try:
+        open_ports = port_scanning(target_ip, start_port, end_port)
+        print(f"Found {len(open_ports)} open ports")
+    except Exception as e:
+        print(f"error: port scanning failed - {e}")
 
     # banner grabbing
     result = []
