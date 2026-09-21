@@ -42,6 +42,12 @@ def main():
     try:
         open_ports = port_scanning(target_ip, start_port, end_port)
         print(f"Found {len(open_ports)} open ports")
+    except socket.timeout:
+        print("error: connection timed out")
+    except socket.gaierror:
+        print("error: could not resolve target")
+    except ConnectionRefusedError:
+        print("error: target refused connection")
     except Exception as e:
         print(f"error: port scanning failed - {e}")
 
